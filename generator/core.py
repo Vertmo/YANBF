@@ -239,25 +239,14 @@ def makebanner(cmdarg, path):
 
 def makeromfs(path):
     # CIA generation
+    path = path.split('\\')[-1]
     try:
         os.mkdir('romfs')
     except FileExistsError:
         pass
     romfs = open('romfs/path.txt', 'w', encoding="utf8")
-    path = unicodedata.normalize("NFC", os.path.abspath(path))
-    if os.name == 'nt':
-        path = path[2:]
-        path = path.replace('\\', '/')
-    else:
-        temp = path
-        orig_dev = os.stat(temp).st_dev
-        while temp != '/':
-            direc = os.path.dirname(temp)
-            if os.stat(direc).st_dev != orig_dev:
-                break
-            temp = direc
-        path = path.replace(temp, "")
-    romfs.write(f"sd:{path}")
+    path = unicodedata.normalize("NFC", path)
+    romfs.write(f"sd:/roms/nds/{path}")
     romfs.close()
     return 0
 

@@ -25,7 +25,6 @@ THE SOFTWARE.
 
 import argparse
 import os
-from sys import exit
 
 import core
 
@@ -71,8 +70,8 @@ if __name__ == "__main__":
     cmdarg = ""
     if os.name != 'nt':
         cmdarg = "./"
-    tidlow = core.collisioncheck(path)
-    execute(tidlow)
+    # tidlow = core.collisioncheck(path)
+    # execute(tidlow)
     print("Extracting and resizing icon...")
     core.makeicon(path)
     print("Getting ROM titles...")
@@ -86,4 +85,4 @@ if __name__ == "__main__":
     print("Getting filepath...")
     execute(core.makeromfs(path))
     print("Running makerom...")
-    execute(core.makecia(cmdarg, path, title, output, randomize, tidlow))
+    execute(core.makecia(cmdarg, path, title, output, randomize, []))
